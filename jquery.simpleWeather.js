@@ -9,6 +9,14 @@
       return Math.round((9.0/5.0)*temp+32.0);
     }
   }
+  
+  function padTime(time) {
+      var splitTime = time.split(" ");
+      var hours = splitTime[0].split(":")[0];
+      var minutes = splitTime[0].split(":")[1];
+      var ampm = splitTime[1];
+      return parseInt(minutes) < 10 ? hours + ":0" + minutes + " " + ampm : time;
+  }
 
   $.extend({
     simpleWeather: function(options){
@@ -62,8 +70,8 @@
             weather.pressure = result.atmosphere.pressure;
             weather.rising = result.atmosphere.rising;
             weather.visibility = result.atmosphere.visibility;
-            weather.sunrise = result.astronomy.sunrise;
-            weather.sunset = result.astronomy.sunset;
+            weather.sunrise = padTime(result.astronomy.sunrise);
+            weather.sunset = padTime(result.astronomy.sunset);
             weather.description = result.item.description;
             weather.city = result.location.city;
             weather.country = result.location.country;
